@@ -1,0 +1,9 @@
+c:\users\administrator\Desktop\ImportStack\ImportStack\bin\Release\ImportStack.exe.config
+c:\users\administrator\Desktop\ImportStack\ImportStack\bin\Release\ImportStack.exe
+c:\users\administrator\Desktop\ImportStack\ImportStack\bin\Release\ImportStack.pdb
+c:\users\administrator\Desktop\ImportStack\ImportStack\bin\Release\LinqDb.dll
+c:\users\administrator\Desktop\ImportStack\ImportStack\bin\Release\LevelDB.NET.dll
+c:\users\administrator\Desktop\ImportStack\ImportStack\bin\Release\protobuf-net.dll
+c:\users\administrator\Desktop\ImportStack\ImportStack\obj\Release\ImportStack.csprojResolveAssemblyReference.cache
+c:\users\administrator\Desktop\ImportStack\ImportStack\obj\Release\ImportStack.exe
+c:\users\administrator\Desktop\ImportStack\ImportStack\obj\Release\ImportStack.pdb
