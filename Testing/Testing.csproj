@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActiveUsersByMonth.cs" />
+    <Compile Include="Data.cs" />
     <Compile Include="ITest.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

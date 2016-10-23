@@ -102,7 +102,7 @@ namespace ImportStack
 
         static void Import(string base_path)
         {
-            var db = new Db(Path.Combine(base_path, "DATA"));
+            var db = new Db(Path.Combine(base_path, "DATA2"));
             var questions = new List<Question>();
             var answers = new List<Answer>();
             int totalq = 0, totala = 0;

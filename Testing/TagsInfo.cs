@@ -27,7 +27,7 @@ namespace Testing
                 DateTime from = new DateTime(cd.Year, cd.Month, 1);
                 DateTime to = new DateTime(cd.Year, cd.Month, DateTime.DaysInMonth(cd.Year, cd.Month), 23, 59, 59);
                 var qs = db.Table<Question>().Between(f => f.CreationDate, from, to, BetweenBoundaries.BothInclusive)
-                           .Select(f => new { QId = f.Id, Answer_count = f.AnswerCount, Has_accepted = f.AcceptedAnswerId != null });
+                           .Select(f => new { QId = f.Id, Answer_count = f.AnswerCount, AcceptedAnswerId = f.AcceptedAnswerId });
                 if (!qs.Any())
                 {
                     break;
@@ -35,7 +35,7 @@ namespace Testing
                 var qdic = new Dictionary<int, int[]>();
                 foreach (var q in qs)
                 {
-                    qdic[q.QId] = new int[2] { q.Answer_count, q.Has_accepted ? 1 : 0 };
+                    qdic[q.QId] = new int[2] { q.Answer_count, q.AcceptedAnswerId != null ? 1 : 0 };
                 }
                 var tags = db.Table<QuestionTags>().Intersect(f => f.QuestionId, new HashSet<int?>(qs.Select(f => (int?)f.QId).AsEnumerable<int?>()))
                                                    .Select(f => new { Qid = f.QuestionId, Tid = f.TagId });
@@ -55,10 +55,10 @@ namespace Testing
             }
 
             //pick popular most unanswered tags for display
-            var hard_tags = result.Where(f => f.Value[0] > 1000).OrderByDescending(f => f.Value[2]).Take(5).ToList();
+            var hard_tags = result.Where(f => f.Value[0] > 1000).OrderByDescending(f => f.Value[2] / (double)f.Value[0]).Take(20).ToList();
             foreach (var htag in hard_tags)
             {
-                Console.WriteLine("tag {0} has unanswered {1}", db.Table<Tag>().Where(f => f.Id == htag.Key).SelectEntity().First().Name, htag.Value[2]);
+                Console.WriteLine("tag {0} (total {1}) has unanswered ratio {2} %", db.Table<Tag>().Where(f => f.Id == htag.Key).SelectEntity().First().Name, htag.Value[0], Math.Round(htag.Value[2] * 100 / (double)htag.Value[0]));
             }
             sw.Stop();
             Console.WriteLine("Tag's info: {0} sec", sw.Elapsed.TotalSeconds);
