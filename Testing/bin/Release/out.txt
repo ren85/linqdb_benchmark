@@ -97,7 +97,7 @@
 2016-7 - 123211 signups
 2016-8 - 116607 signups
 2016-9 - 11170 signups
-Signups per month: 30.0616678 sec
+Signups per month: 12.8130909 sec
 2008-7 - 3 active users
 2008-8 - 2169 active users
 2008-9 - 9420 active users
@@ -197,7 +197,7 @@ Signups per month: 30.0616678 sec
 2016-7 - 184132 active users
 2016-8 - 198623 active users
 2016-9 - 31207 active users
-User activity per month: 551.8596257 sec
+User activity per month: 201.8649139 sec
 2008-7 - c#:3  java:0  javascript:0  jquery:0  
 2008-8 - c#:506  java:223  javascript:163  jquery:28  
 2008-9 - c#:1651  java:1155  javascript:640  jquery:137  
@@ -297,7 +297,7 @@ User activity per month: 551.8596257 sec
 2016-7 - c#:13719  java:17345  javascript:25062  jquery:10608  
 2016-8 - c#:15676  java:19306  javascript:27423  jquery:11406  
 2016-9 - c#:1438  java:1939  javascript:2686  jquery:1113  
-Tag activity per month: 836.5600888 sec
+Tag activity per month: 487.9629338 sec
 tag list-comprehension (total 2366) has unanswered ratio 82 %
 tag ternary-operator (total 1142) has unanswered ratio 81 %
 tag jquery-selectors (total 7693) has unanswered ratio 80 %
@@ -318,7 +318,7 @@ tag move-semantics (total 1009) has unanswered ratio 77 %
 tag operators (total 4759) has unanswered ratio 76 %
 tag typeclass (total 1017) has unanswered ratio 76 %
 tag c99 (total 1190) has unanswered ratio 76 %
-Tag's info: 592.7662677 sec
+Tag's info: 567.2755891 sec
 2008-7 - c#:3  java:0  javascript:0  jquery:0  
 2008-8 - c#:506  java:223  javascript:163  jquery:28  
 2008-9 - c#:1651  java:1155  javascript:640  jquery:137  
@@ -418,7 +418,7 @@ Tag's info: 592.7662677 sec
 2016-7 - c#:13719  java:17345  javascript:25062  jquery:10608  
 2016-8 - c#:15676  java:19306  javascript:27423  jquery:11406  
 2016-9 - c#:1438  java:1939  javascript:2686  jquery:1113  
-Tag activity per month (fast): 139.696465 sec
+Tag activity per month (fast): 102.3894967 sec
 tag list-comprehension (total 2366) has unanswered ratio 82 %
 tag ternary-operator (total 1142) has unanswered ratio 81 %
 tag jquery-selectors (total 7693) has unanswered ratio 80 %
@@ -439,4 +439,4 @@ tag move-semantics (total 1009) has unanswered ratio 77 %
 tag operators (total 4759) has unanswered ratio 76 %
 tag typeclass (total 1017) has unanswered ratio 76 %
 tag c99 (total 1190) has unanswered ratio 76 %
-Tag's info (fast): 196.9431732 sec
+Tag's info (fast): 189.9481114 sec

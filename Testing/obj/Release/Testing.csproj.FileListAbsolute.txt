@@ -1,0 +1,11 @@
+C:\Users\renbo\Desktop\linqdb_benchmark\Testing\bin\Release\Testing.exe.config
+C:\Users\renbo\Desktop\linqdb_benchmark\Testing\bin\Release\Testing.exe
+C:\Users\renbo\Desktop\linqdb_benchmark\Testing\bin\Release\Testing.pdb
+C:\Users\renbo\Desktop\linqdb_benchmark\Testing\bin\Release\LinqDb.dll
+C:\Users\renbo\Desktop\linqdb_benchmark\Testing\bin\Release\StackData.dll
+C:\Users\renbo\Desktop\linqdb_benchmark\Testing\bin\Release\LevelDB.NET.dll
+C:\Users\renbo\Desktop\linqdb_benchmark\Testing\bin\Release\protobuf-net.dll
+C:\Users\renbo\Desktop\linqdb_benchmark\Testing\bin\Release\StackData.pdb
+C:\Users\renbo\Desktop\linqdb_benchmark\Testing\obj\Release\Testing.csprojResolveAssemblyReference.cache
+C:\Users\renbo\Desktop\linqdb_benchmark\Testing\obj\Release\Testing.exe
+C:\Users\renbo\Desktop\linqdb_benchmark\Testing\obj\Release\Testing.pdb
