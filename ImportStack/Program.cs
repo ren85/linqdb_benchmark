@@ -184,15 +184,14 @@ namespace ImportStack
                 }
                 foreach (var t in stags)
                 {
-                    var parts = t.Tags.Split(new string[] { ">" }, StringSplitOptions.RemoveEmptyEntries);
-                    foreach (var p in parts)
+                    var ptags = Utils.ParseTags(t.Tags);
+                    foreach (var tag in ptags)
                     {
-                        var clean_tag = p.Replace("<", "");
-                        if (!tag_dic.ContainsKey(clean_tag))
+                        if (!tag_dic.ContainsKey(tag))
                         {
-                            throw new Exception("Tag not found: " + clean_tag);
+                            throw new Exception("Tag not found: " + tag);
                         }
-                        var tags_id = tag_dic[clean_tag];
+                        var tags_id = tag_dic[tag];
                         qt.Add(new QuestionTags()
                         {
                             Id = 0,
@@ -251,6 +250,7 @@ namespace ImportStack
             }
 
             Console.WriteLine("Time: {0} min", ((DateTime.Now) - start).TotalMinutes);
+            Console.ReadLine();
             db.Dispose();
         }
 

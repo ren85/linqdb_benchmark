@@ -16,7 +16,9 @@ namespace Testing
                 new SignupsPerMonth(),
                 new ActiveUsersByMonth(),
                 new TagsPerMonth(),
-                new TagsInfo()
+                new TagsInfo(),
+                new TagsPerMonthFast(),
+                new TagsInfoFast()
             };
             foreach (var item in list)
             {

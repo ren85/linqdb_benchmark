@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Testing
 {
-    class TagsInfo : ITest
+    class TagsInfoFast : ITest
     {
         public void Do(string path)
         {
@@ -17,6 +17,11 @@ namespace Testing
 
             Stopwatch sw = new Stopwatch();
             sw.Start();
+
+            Dictionary<string, int> tag_cache = db.Table<Tag>()
+                                                  .SelectEntity()
+                                                  .ToList()
+                                                  .ToDictionary(f => f.Name, z => z.Id);
 
             Dictionary<int, int[]> result = new Dictionary<int, int[]>(); //int[]: [0] question count, [1] answer count, [2] unanswered count
 
@@ -27,7 +32,7 @@ namespace Testing
                 DateTime from = new DateTime(cd.Year, cd.Month, 1);
                 DateTime to = new DateTime(cd.Year, cd.Month, DateTime.DaysInMonth(cd.Year, cd.Month), 23, 59, 59);
                 var qs = db.Table<Question>().Between(f => f.CreationDate, from, to, BetweenBoundaries.BothInclusive)
-                           .Select(f => new { QId = f.Id, Answer_count = f.AnswerCount, AcceptedAnswerId = f.AcceptedAnswerId });
+                           .Select(f => new { QId = f.Id, Answer_count = f.AnswerCount, AcceptedAnswerId = f.AcceptedAnswerId, Tags = f.Tags });
                 if (!qs.Any())
                 {
                     break;
@@ -37,19 +42,23 @@ namespace Testing
                 {
                     qdic[q.QId] = new int[2] { q.Answer_count, q.AcceptedAnswerId != null ? 1 : 0 };
                 }
-                var tags = db.Table<QuestionTags>().Intersect(f => f.QuestionId, qs.Select(f => f.QId).ToList())
-                                                   .Select(f => new { Qid = f.QuestionId, Tid = f.TagId });
-                foreach (var tag in tags)
+
+                foreach (var q in qs)
                 {
-                    if (!result.ContainsKey(tag.Tid))
+                    var tags = Utils.ParseTags(q.Tags);
+                    foreach (var tag in tags)
                     {
-                        result[tag.Tid] = new int[3] { 1, qdic[tag.Qid][0], qdic[tag.Qid][1] };
-                    }
-                    else
-                    {
-                        result[tag.Tid][0] += 1;
-                        result[tag.Tid][1] += qdic[tag.Qid][0];
-                        result[tag.Tid][2] += qdic[tag.Qid][1];
+                        int tag_id = tag_cache[tag];
+                        if (!result.ContainsKey(tag_id))
+                        {
+                            result[tag_id] = new int[3] { 1, qdic[q.QId][0], qdic[q.QId][1] };
+                        }
+                        else
+                        {
+                            result[tag_id][0] += 1;
+                            result[tag_id][1] += qdic[q.QId][0];
+                            result[tag_id][2] += qdic[q.QId][1];
+                        }
                     }
                 }
             }
@@ -61,7 +70,7 @@ namespace Testing
                 Console.WriteLine("tag {0} (total {1}) has unanswered ratio {2} %", db.Table<Tag>().Where(f => f.Id == htag.Key).SelectEntity().First().Name, htag.Value[0], Math.Round(htag.Value[2] * 100 / (double)htag.Value[0]));
             }
             sw.Stop();
-            Console.WriteLine("Tag's info: {0} sec", sw.Elapsed.TotalSeconds);
+            Console.WriteLine("Tag's info (fast): {0} sec", sw.Elapsed.TotalSeconds);
 
             db.Dispose();
         }

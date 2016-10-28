@@ -81,5 +81,20 @@ namespace StackData
         public byte[] Text { get; set; }
         public DateTime CreationDate { get; set; }
         public int? UserId { get; set; }
-    } 
+    }
+
+    public class Utils
+    {
+        public static List<string> ParseTags(string data)
+        {
+            var res = new List<string>();
+            var parts = data.Split(new string[] { ">" }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var p in parts)
+            {
+                var clean_tag = p.Replace("<", "");
+                res.Add(clean_tag);
+            }
+            return res;
+        }
+    }
 }

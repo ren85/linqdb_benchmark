@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Testing
 {
-    class TagsPerMonth : ITest
+    class TagsPerMonthFast : ITest
     {
         public void Do(string path)
         {
@@ -17,8 +17,11 @@ namespace Testing
 
             Stopwatch sw = new Stopwatch();
             sw.Start();
-           
 
+            Dictionary<string, int> tag_cache = db.Table<Tag>()
+                                                  .SelectEntity()
+                                                  .ToList()
+                                                  .ToDictionary(f => f.Name, z => z.Id);
             Dictionary<DateTime, Dictionary<int, int>> result = new Dictionary<DateTime, Dictionary<int, int>>();
             DateTime min_date = db.Table<Question>().OrderBy(f => f.CreationDate).Take(1).Select(f => new { CD = f.CreationDate }).First().CD;
 
@@ -26,7 +29,7 @@ namespace Testing
             {
                 DateTime from = new DateTime(cd.Year, cd.Month, 1);
                 DateTime to = new DateTime(cd.Year, cd.Month, DateTime.DaysInMonth(cd.Year, cd.Month), 23, 59, 59);
-                var qs = db.Table<Question>().Between(f => f.CreationDate, from, to, BetweenBoundaries.BothInclusive).Select(f => new { QId = f.Id });
+                var qs = db.Table<Question>().Between(f => f.CreationDate, from, to, BetweenBoundaries.BothInclusive).Select(f => new { QId = f.Id, Tags = f.Tags });
 
                 if (!qs.Any())
                 {
@@ -34,24 +37,27 @@ namespace Testing
                 }
 
                 var res = new Dictionary<int, int>(); //tag_id, count
-                var tags = db.Table<QuestionTags>().Intersect(f => f.QuestionId, qs.Select(f => f.QId).ToList())
-                                                   .Select(f => new { Qid = f.QuestionId, Tid = f.TagId });
 
-                foreach (var tag in tags)
+                foreach (var q in qs)
                 {
-                    if (!res.ContainsKey(tag.Tid))
+                    var tags = Utils.ParseTags(q.Tags);
+                    foreach (var tag in tags)
                     {
-                        res[tag.Tid] = 1;
-                    }
-                    else
-                    {
-                        res[tag.Tid]++;
+                        if (!res.ContainsKey(tag_cache[tag]))
+                        {
+                            res[tag_cache[tag]] = 1;
+                        }
+                        else
+                        {
+                            res[tag_cache[tag]]++;
+                        }
                     }
                 }
+
                 result[from] = res;
             }
 
-            
+
 
             //pick some tags for display
             var display_tags = new Dictionary<string, int>() { { "c#", 0 }, { "java", 0 }, { "javascript", 0 }, { "jquery", 0 } };
@@ -76,7 +82,7 @@ namespace Testing
                 Console.WriteLine();
             }
             sw.Stop();
-            Console.WriteLine("Tag activity per month: {0} sec", sw.Elapsed.TotalSeconds);
+            Console.WriteLine("Tag activity per month (fast): {0} sec", sw.Elapsed.TotalSeconds);
 
             db.Dispose();
         }
