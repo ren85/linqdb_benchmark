@@ -9,3 +9,4 @@ C:\Users\renbo\Desktop\linqdb_benchmark\ImportStack\bin\Debug\StackData.pdb
 C:\Users\renbo\Desktop\linqdb_benchmark\ImportStack\obj\Debug\ImportStack.csprojResolveAssemblyReference.cache
 C:\Users\renbo\Desktop\linqdb_benchmark\ImportStack\obj\Debug\ImportStack.exe
 C:\Users\renbo\Desktop\linqdb_benchmark\ImportStack\obj\Debug\ImportStack.pdb
+C:\Users\renbo\Desktop\linqdb_benchmark\ImportStack\bin\Debug\LinqDb.pdb

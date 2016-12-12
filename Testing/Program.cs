@@ -10,7 +10,7 @@ namespace Testing
     {
         static void Main(string[] args)
         {
-            string path = @"E:\DATA2";
+            string path = @"E:\DATA";
             var list = new List<ITest>() 
             {
                 new SignupsPerMonth(),

@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Collections;
 using System.IO;
-using LinqDb;
 using System.Xml.Linq;
 using System.Xml;
 using StackData;
+using LinqDb;
 
 namespace ImportStack
 {
@@ -102,7 +102,7 @@ namespace ImportStack
 
         static void Import(string base_path)
         {
-            var db = new Db(Path.Combine(base_path, "DATA2"));
+            var db = new Db(Path.Combine(base_path, "DATA"));
             var questions = new List<Question>();
             var answers = new List<Answer>();
             int totalq = 0, totala = 0;
@@ -116,7 +116,7 @@ namespace ImportStack
                 {
                     totalq++;
                     questions.Add(GetQuestion(row));
-                    if (questions.Count() > 50000)
+                    if (questions.Count() > 30000)
                     {
                         db.Table<Question>().SaveBatch(questions);
                         questions = new List<Question>();
@@ -126,7 +126,7 @@ namespace ImportStack
                 {
                     totala++;
                     answers.Add(GetAnswer(row));
-                    if (answers.Count() > 50000)
+                    if (answers.Count() > 30000)
                     {
                         db.Table<Answer>().SaveBatch(answers);
                         answers = new List<Answer>();
@@ -150,7 +150,7 @@ namespace ImportStack
             foreach (var row in EnumerateRows(Path.Combine(base_path, "Tags.xml")))
             {
                 tags.Add(GetTag(row));
-                if (tags.Count() > 50000)
+                if (tags.Count() > 30000)
                 {
                     db.Table<Tag>().SaveBatch(tags);
                     foreach (var t in tags)
@@ -219,7 +219,7 @@ namespace ImportStack
                     continue;
                 }
                 users.Add(user);
-                if (users.Count() > 50000)
+                if (users.Count() > 30000)
                 {
                     db.Table<User>().SaveBatch(users);
                     users = new List<User>();
@@ -237,7 +237,7 @@ namespace ImportStack
             {
                 var comment = GetComment(row);
                 comments.Add(comment);
-                if (comments.Count() > 50000)
+                if (comments.Count() > 30000)
                 {
                     db.Table<Comment>().SaveBatch(comments);
                     comments = new List<Comment>();
@@ -250,7 +250,7 @@ namespace ImportStack
             }
 
             Console.WriteLine("Time: {0} min", ((DateTime.Now) - start).TotalMinutes);
-            Console.ReadLine();
+            //Console.ReadLine();
             db.Dispose();
         }
 
