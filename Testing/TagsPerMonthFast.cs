@@ -23,13 +23,13 @@ namespace Testing
                                                   .ToList()
                                                   .ToDictionary(f => f.Name, z => z.Id);
             Dictionary<DateTime, Dictionary<int, int>> result = new Dictionary<DateTime, Dictionary<int, int>>();
-            DateTime min_date = db.Table<Question>().OrderBy(f => f.CreationDate).Take(1).Select(f => new { CD = f.CreationDate }).First().CD;
+            DateTime min_date = db.Table<Question>().OrderBy(f => f.CreationDate).Take(1).Select(f => new { f.CreationDate }).First().CreationDate;
 
             for (DateTime cd = min_date; ; cd = cd.AddMonths(1))
             {
                 DateTime from = new DateTime(cd.Year, cd.Month, 1);
                 DateTime to = new DateTime(cd.Year, cd.Month, DateTime.DaysInMonth(cd.Year, cd.Month), 23, 59, 59);
-                var qs = db.Table<Question>().Between(f => f.CreationDate, from, to, BetweenBoundaries.BothInclusive).Select(f => new { QId = f.Id, Tags = f.Tags });
+                var qs = db.Table<Question>().Between(f => f.CreationDate, from, to, BetweenBoundaries.BothInclusive).Select(f => new { f.Id, f.Tags });
 
                 if (!qs.Any())
                 {

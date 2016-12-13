@@ -20,13 +20,13 @@ namespace Testing
            
 
             Dictionary<DateTime, Dictionary<int, int>> result = new Dictionary<DateTime, Dictionary<int, int>>();
-            DateTime min_date = db.Table<Question>().OrderBy(f => f.CreationDate).Take(1).Select(f => new { CD = f.CreationDate }).First().CD;
+            DateTime min_date = db.Table<Question>().OrderBy(f => f.CreationDate).Take(1).Select(f => new { f.CreationDate }).First().CreationDate;
 
             for (DateTime cd = min_date; ; cd = cd.AddMonths(1))
             {
                 DateTime from = new DateTime(cd.Year, cd.Month, 1);
                 DateTime to = new DateTime(cd.Year, cd.Month, DateTime.DaysInMonth(cd.Year, cd.Month), 23, 59, 59);
-                var qs = db.Table<Question>().Between(f => f.CreationDate, from, to, BetweenBoundaries.BothInclusive).Select(f => new { QId = f.Id });
+                var qs = db.Table<Question>().Between(f => f.CreationDate, from, to, BetweenBoundaries.BothInclusive).Select(f => new { f.Id });
 
                 if (!qs.Any())
                 {
@@ -34,18 +34,18 @@ namespace Testing
                 }
 
                 var res = new Dictionary<int, int>(); //tag_id, count
-                var tags = db.Table<QuestionTags>().Intersect(f => f.QuestionId, qs.Select(f => f.QId).ToList())
-                                                   .Select(f => new { Qid = f.QuestionId, Tid = f.TagId });
+                var tags = db.Table<QuestionTags>().Intersect(f => f.QuestionId, qs.Select(f => f.Id).ToList())
+                                                   .Select(f => new { f.QuestionId, f.TagId });
 
                 foreach (var tag in tags)
                 {
-                    if (!res.ContainsKey(tag.Tid))
+                    if (!res.ContainsKey(tag.TagId))
                     {
-                        res[tag.Tid] = 1;
+                        res[tag.TagId] = 1;
                     }
                     else
                     {
-                        res[tag.Tid]++;
+                        res[tag.TagId]++;
                     }
                 }
                 result[from] = res;

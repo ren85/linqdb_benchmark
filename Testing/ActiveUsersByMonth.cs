@@ -19,7 +19,7 @@ namespace Testing
             sw.Start();
 
             Dictionary<DateTime, int> result = new Dictionary<DateTime, int>();
-            DateTime min_date = db.Table<Question>().OrderBy(f => f.CreationDate).Take(1).Select(f => new { CD = f.CreationDate }).First().CD;
+            DateTime min_date = db.Table<Question>().OrderBy(f => f.CreationDate).Take(1).Select(f => new { f.CreationDate }).First().CreationDate;
             
             for (DateTime cd = min_date; ; cd = cd.AddMonths(1))
             {
@@ -27,8 +27,8 @@ namespace Testing
                 DateTime to = new DateTime(cd.Year, cd.Month, DateTime.DaysInMonth(cd.Year, cd.Month), 23, 59, 59);
                 var users_asked_l = db.Table<Question>()
                                       .Between(f => f.CreationDate, from, to, BetweenBoundaries.BothInclusive)
-                                      .Select(f => new { UserId = f.OwnerUserId })
-                                      .Select(f => f.UserId)
+                                      .Select(f => new { f.OwnerUserId })
+                                      .Select(f => f.OwnerUserId)
                                       .Where(f => f != null)
                                       .AsEnumerable<int?>();
                 if (!users_asked_l.Any())
@@ -41,8 +41,8 @@ namespace Testing
                 //answers
                 var users_answered = db.Table<Answer>()
                                        .Between(f => f.CreationDate, from, to, BetweenBoundaries.BothInclusive)
-                                       .Select(f => new { UserId = f.OwnerUserId })
-                                       .Select(f => f.UserId)
+                                       .Select(f => new { f.OwnerUserId })
+                                       .Select(f => f.OwnerUserId)
                                        .Where(f => f != null);
                 result[from] += users_answered.Where(f => !users_asked.Contains((int)f)).Distinct().Count();
             }

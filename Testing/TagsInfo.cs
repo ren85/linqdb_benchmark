@@ -20,14 +20,14 @@ namespace Testing
 
             Dictionary<int, int[]> result = new Dictionary<int, int[]>(); //int[]: [0] question count, [1] answer count, [2] unanswered count
 
-            DateTime min_date = db.Table<Question>().OrderBy(f => f.CreationDate).Take(1).Select(f => new { CD = f.CreationDate }).First().CD;
+            DateTime min_date = db.Table<Question>().OrderBy(f => f.CreationDate).Take(1).Select(f => new { f.CreationDate }).First().CreationDate;
 
             for (DateTime cd = min_date; ; cd = cd.AddMonths(1))
             {
                 DateTime from = new DateTime(cd.Year, cd.Month, 1);
                 DateTime to = new DateTime(cd.Year, cd.Month, DateTime.DaysInMonth(cd.Year, cd.Month), 23, 59, 59);
                 var qs = db.Table<Question>().Between(f => f.CreationDate, from, to, BetweenBoundaries.BothInclusive)
-                           .Select(f => new { QId = f.Id, Answer_count = f.AnswerCount, AcceptedAnswerId = f.AcceptedAnswerId });
+                           .Select(f => new { f.Id, f.AnswerCount, f.AcceptedAnswerId });
                 if (!qs.Any())
                 {
                     break;
@@ -35,21 +35,21 @@ namespace Testing
                 var qdic = new Dictionary<int, int[]>();
                 foreach (var q in qs)
                 {
-                    qdic[q.QId] = new int[2] { q.Answer_count, q.AcceptedAnswerId != null ? 1 : 0 };
+                    qdic[q.Id] = new int[2] { q.AnswerCount, q.AcceptedAnswerId != null ? 1 : 0 };
                 }
-                var tags = db.Table<QuestionTags>().Intersect(f => f.QuestionId, qs.Select(f => f.QId).ToList())
-                                                   .Select(f => new { Qid = f.QuestionId, Tid = f.TagId });
+                var tags = db.Table<QuestionTags>().Intersect(f => f.QuestionId, qs.Select(f => f.Id).ToList())
+                                                   .Select(f => new { f.QuestionId, f.TagId });
                 foreach (var tag in tags)
                 {
-                    if (!result.ContainsKey(tag.Tid))
+                    if (!result.ContainsKey(tag.TagId))
                     {
-                        result[tag.Tid] = new int[3] { 1, qdic[tag.Qid][0], qdic[tag.Qid][1] };
+                        result[tag.TagId] = new int[3] { 1, qdic[tag.QuestionId][0], qdic[tag.QuestionId][1] };
                     }
                     else
                     {
-                        result[tag.Tid][0] += 1;
-                        result[tag.Tid][1] += qdic[tag.Qid][0];
-                        result[tag.Tid][2] += qdic[tag.Qid][1];
+                        result[tag.TagId][0] += 1;
+                        result[tag.TagId][1] += qdic[tag.QuestionId][0];
+                        result[tag.TagId][2] += qdic[tag.QuestionId][1];
                     }
                 }
             }

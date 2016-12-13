@@ -18,22 +18,22 @@ namespace Testing
             Stopwatch sw = new Stopwatch();
             sw.Start();
 
-            DateTime min_date = db.Table<User>().OrderBy(f => f.CreationDate).Take(1).Select(f => new { CD = f.CreationDate }).First().CD;
-            DateTime max_date = db.Table<User>().OrderByDescending(f => f.CreationDate).Take(1).Select(f => new { CD = f.CreationDate }).First().CD;
+            DateTime min_date = db.Table<User>().OrderBy(f => f.CreationDate).Take(1).Select(f => new { f.CreationDate }).First().CreationDate;
+            DateTime max_date = db.Table<User>().OrderByDescending(f => f.CreationDate).Take(1).Select(f => new { f.CreationDate }).First().CreationDate;
 
             Dictionary<DateTime, int> result = new Dictionary<DateTime,int>();
             for (DateTime cd = min_date; cd < max_date; cd = cd.AddMonths(1))
             {
                 DateTime from = new DateTime(cd.Year, cd.Month, 1);
                 DateTime to = new DateTime(cd.Year, cd.Month, DateTime.DaysInMonth(cd.Year, cd.Month), 23, 59, 59);
-                result[from] = db.Table<User>().Between(f => f.CreationDate, from, to, BetweenBoundaries.BothInclusive).Select(f => new { Id = f.Id }).Count();
+                result[from] = db.Table<User>().Between(f => f.CreationDate, from, to, BetweenBoundaries.BothInclusive).Select(f => new { f.Id }).Count();
             }
             var last_key = new DateTime(max_date.Year, max_date.Month, 1);
             if (!result.ContainsKey(last_key))
             {
                 result[last_key] = db.Table<User>()
                                      .Between(f => f.CreationDate, new DateTime(max_date.Year, max_date.Month, 1), max_date, BetweenBoundaries.BothInclusive)
-                                     .Select(f => new { Id = f.Id }).Count();
+                                     .Select(f => new { f.Id }).Count();
             }
 
             foreach (var entry in result.OrderBy(f => f.Key))

@@ -25,14 +25,14 @@ namespace Testing
 
             Dictionary<int, int[]> result = new Dictionary<int, int[]>(); //int[]: [0] question count, [1] answer count, [2] unanswered count
 
-            DateTime min_date = db.Table<Question>().OrderBy(f => f.CreationDate).Take(1).Select(f => new { CD = f.CreationDate }).First().CD;
+            DateTime min_date = db.Table<Question>().OrderBy(f => f.CreationDate).Take(1).Select(f => new { f.CreationDate }).First().CreationDate;
 
             for (DateTime cd = min_date; ; cd = cd.AddMonths(1))
             {
                 DateTime from = new DateTime(cd.Year, cd.Month, 1);
                 DateTime to = new DateTime(cd.Year, cd.Month, DateTime.DaysInMonth(cd.Year, cd.Month), 23, 59, 59);
                 var qs = db.Table<Question>().Between(f => f.CreationDate, from, to, BetweenBoundaries.BothInclusive)
-                           .Select(f => new { QId = f.Id, Answer_count = f.AnswerCount, AcceptedAnswerId = f.AcceptedAnswerId, Tags = f.Tags });
+                           .Select(f => new { f.Id, f.AnswerCount, f.AcceptedAnswerId, f.Tags });
                 if (!qs.Any())
                 {
                     break;
@@ -40,7 +40,7 @@ namespace Testing
                 var qdic = new Dictionary<int, int[]>();
                 foreach (var q in qs)
                 {
-                    qdic[q.QId] = new int[2] { q.Answer_count, q.AcceptedAnswerId != null ? 1 : 0 };
+                    qdic[q.Id] = new int[2] { q.AnswerCount, q.AcceptedAnswerId != null ? 1 : 0 };
                 }
 
                 foreach (var q in qs)
@@ -51,13 +51,13 @@ namespace Testing
                         int tag_id = tag_cache[tag];
                         if (!result.ContainsKey(tag_id))
                         {
-                            result[tag_id] = new int[3] { 1, qdic[q.QId][0], qdic[q.QId][1] };
+                            result[tag_id] = new int[3] { 1, qdic[q.Id][0], qdic[q.Id][1] };
                         }
                         else
                         {
                             result[tag_id][0] += 1;
-                            result[tag_id][1] += qdic[q.QId][0];
-                            result[tag_id][2] += qdic[q.QId][1];
+                            result[tag_id][1] += qdic[q.Id][0];
+                            result[tag_id][2] += qdic[q.Id][1];
                         }
                     }
                 }
