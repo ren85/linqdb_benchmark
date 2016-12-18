@@ -14,12 +14,12 @@ Machine ram: 8 Gb
 
 Results:
 
-1. Data import (https://github.com/ren85/linqdb_benchmark/blob/master/ImportStack/Program.cs): 236 min, db size 41,2 Gb
-2. Signups per month (https://github.com/ren85/linqdb_benchmark/blob/master/Testing/SignupsPerMonth.cs): 10 sec
-3. User activity per month (https://github.com/ren85/linqdb_benchmark/blob/master/Testing/ActiveUsersByMonth.cs): 150 sec
-4. Tag activity per month (https://github.com/ren85/linqdb_benchmark/blob/master/Testing/TagsPerMonth.cs): 430 sec
-5. Tag's info (https://github.com/ren85/linqdb_benchmark/blob/master/Testing/TagsInfo.cs): 450 sec
+1. Data import (https://github.com/ren85/linqdb_benchmark/blob/master/ImportStack/Program.cs): 197 min, db size 41,2 Gb
+2. Signups per month (https://github.com/ren85/linqdb_benchmark/blob/master/Testing/SignupsPerMonth.cs): 15 sec
+3. User activity per month (https://github.com/ren85/linqdb_benchmark/blob/master/Testing/ActiveUsersByMonth.cs): 180 sec
+4. Tag activity per month (https://github.com/ren85/linqdb_benchmark/blob/master/Testing/TagsPerMonth.cs): 330 sec
+5. Tag's info (https://github.com/ren85/linqdb_benchmark/blob/master/Testing/TagsInfo.cs): 380 sec
 
-6. Tag activity per month, fast version (https://github.com/ren85/linqdb_benchmark/blob/master/Testing/TagsPerMonthFast.cs): 95 sec
-7. Tag's info, fast version (https://github.com/ren85/linqdb_benchmark/blob/master/Testing/TagsInfoFast.cs) 155 sec
+6. Tag activity per month, fast version (https://github.com/ren85/linqdb_benchmark/blob/master/Testing/TagsPerMonthFast.cs): 100 sec
+7. Tag's info, fast version (https://github.com/ren85/linqdb_benchmark/blob/master/Testing/TagsInfoFast.cs) 160 sec
 
