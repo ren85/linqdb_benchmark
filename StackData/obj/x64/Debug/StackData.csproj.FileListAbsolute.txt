@@ -1,0 +1,4 @@
+C:\Users\renbo\Desktop\linqdb_benchmark\StackData\bin\x64\Debug\StackData.dll
+C:\Users\renbo\Desktop\linqdb_benchmark\StackData\bin\x64\Debug\StackData.pdb
+C:\Users\renbo\Desktop\linqdb_benchmark\StackData\obj\x64\Debug\StackData.dll
+C:\Users\renbo\Desktop\linqdb_benchmark\StackData\obj\x64\Debug\StackData.pdb
