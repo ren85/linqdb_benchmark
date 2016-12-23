@@ -52,9 +52,8 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LinqDb, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>native\LinqDb.dll</HintPath>
+    <Reference Include="LinqDb">
+      <HintPath>..\linqdb\LinqDb.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -83,14 +82,6 @@
       <Project>{4e6442a6-27bc-40f7-ae7e-a4176f6509d4}</Project>
       <Name>StackData</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="native\amd64\librocksdb.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="native\LinqDb.dll" />
-    <Content Include="native\protobuf-net.dll" />
-    <Content Include="native\RocksDbSharp.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
