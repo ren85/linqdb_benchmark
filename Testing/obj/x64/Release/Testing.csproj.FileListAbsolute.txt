@@ -1,0 +1,13 @@
+C:\Users\renbo\Desktop\linqdb_benchmark\Testing\obj\x64\Release\Testing.csprojResolveAssemblyReference.cache
+C:\Users\renbo\Desktop\linqdb_benchmark\Testing\bin\x64\Release\Testing.exe.config
+C:\Users\renbo\Desktop\linqdb_benchmark\Testing\bin\x64\Release\Testing.exe
+C:\Users\renbo\Desktop\linqdb_benchmark\Testing\bin\x64\Release\Testing.pdb
+C:\Users\renbo\Desktop\linqdb_benchmark\Testing\bin\x64\Release\LinqdbClient.dll
+C:\Users\renbo\Desktop\linqdb_benchmark\Testing\bin\x64\Release\StackData.dll
+C:\Users\renbo\Desktop\linqdb_benchmark\Testing\bin\x64\Release\ServerSharedData.dll
+C:\Users\renbo\Desktop\linqdb_benchmark\Testing\bin\x64\Release\protobuf-net.dll
+C:\Users\renbo\Desktop\linqdb_benchmark\Testing\bin\x64\Release\StackData.pdb
+C:\Users\renbo\Desktop\linqdb_benchmark\Testing\bin\x64\Release\LinqdbClient.pdb
+C:\Users\renbo\Desktop\linqdb_benchmark\Testing\bin\x64\Release\ServerSharedData.pdb
+C:\Users\renbo\Desktop\linqdb_benchmark\Testing\obj\x64\Release\Testing.exe
+C:\Users\renbo\Desktop\linqdb_benchmark\Testing\obj\x64\Release\Testing.pdb

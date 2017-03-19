@@ -7,7 +7,7 @@ using System.IO;
 using System.Xml.Linq;
 using System.Xml;
 using StackData;
-using LinqDb;
+using LinqdbClient;
 
 namespace ImportStack
 {
@@ -97,12 +97,15 @@ namespace ImportStack
 
         static void Main(string[] args)
         {
-            Import(@"E:\");
+            //Import(@"E:\");
+            Import(@"C:\Users\Administrator\Documents\stackoverflow\");
         }
 
         static void Import(string base_path)
         {
-            var db = new Db(Path.Combine(base_path, "DATA"));
+            //var db = new Db("rextester.cloudapp.net:2055");
+            //var db = new Db("localhost:2055");
+            var db = new Db("13.69.73.68:2055");
             var questions = new List<Question>();
             var answers = new List<Answer>();
             int totalq = 0, totala = 0;
@@ -176,7 +179,7 @@ namespace ImportStack
             for (int qid = 0; ; qid += bsize)
             {
                 var stags = db.Table<Question>()
-                              .Between(f => f.Id, qid, qid + bsize, BetweenBoundaries.FromInclusiveToExclusive)
+                              .BetweenInt(f => f.Id, qid, qid + bsize, BetweenBoundaries.FromInclusiveToExclusive)
                               .Select(f => new { QuestionId = f.Id, Tags = f.Tags });
                 if (!stags.Any())
                 {

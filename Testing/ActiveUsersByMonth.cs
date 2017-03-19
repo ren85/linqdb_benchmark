@@ -1,4 +1,4 @@
-﻿using LinqDb;
+﻿using LinqdbClient;
 using StackData;
 using System;
 using System.Collections.Generic;
@@ -26,7 +26,7 @@ namespace Testing
                 DateTime from = new DateTime(cd.Year, cd.Month, 1);
                 DateTime to = new DateTime(cd.Year, cd.Month, DateTime.DaysInMonth(cd.Year, cd.Month), 23, 59, 59);
                 var users_asked_l = db.Table<Question>()
-                                      .Between(f => f.CreationDate, from, to, BetweenBoundaries.BothInclusive)
+                                      .BetweenDate(f => f.CreationDate, from, to, BetweenBoundaries.BothInclusive)
                                       .Select(f => new { f.OwnerUserId })
                                       .Select(f => f.OwnerUserId)
                                       .Where(f => f != null)
@@ -40,7 +40,7 @@ namespace Testing
                 
                 //answers
                 var users_answered = db.Table<Answer>()
-                                       .Between(f => f.CreationDate, from, to, BetweenBoundaries.BothInclusive)
+                                       .BetweenDate(f => f.CreationDate, from, to, BetweenBoundaries.BothInclusive)
                                        .Select(f => new { f.OwnerUserId })
                                        .Select(f => f.OwnerUserId)
                                        .Where(f => f != null);

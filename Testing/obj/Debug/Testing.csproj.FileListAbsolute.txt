@@ -1,0 +1,12 @@
+C:\Users\renbo\Desktop\linqdb_benchmark\Testing\bin\Debug\Testing.exe.config
+C:\Users\renbo\Desktop\linqdb_benchmark\Testing\bin\Debug\Testing.exe
+C:\Users\renbo\Desktop\linqdb_benchmark\Testing\bin\Debug\Testing.pdb
+C:\Users\renbo\Desktop\linqdb_benchmark\Testing\bin\Debug\LinqdbClient.dll
+C:\Users\renbo\Desktop\linqdb_benchmark\Testing\bin\Debug\StackData.dll
+C:\Users\renbo\Desktop\linqdb_benchmark\Testing\bin\Debug\ServerSharedData.dll
+C:\Users\renbo\Desktop\linqdb_benchmark\Testing\bin\Debug\StackData.pdb
+C:\Users\renbo\Desktop\linqdb_benchmark\Testing\bin\Debug\LinqdbClient.pdb
+C:\Users\renbo\Desktop\linqdb_benchmark\Testing\bin\Debug\ServerSharedData.pdb
+C:\Users\renbo\Desktop\linqdb_benchmark\Testing\obj\Debug\Testing.csprojResolveAssemblyReference.cache
+C:\Users\renbo\Desktop\linqdb_benchmark\Testing\obj\Debug\Testing.exe
+C:\Users\renbo\Desktop\linqdb_benchmark\Testing\obj\Debug\Testing.pdb

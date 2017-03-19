@@ -1,4 +1,4 @@
-﻿using LinqDb;
+﻿using LinqdbClient;
 using StackData;
 using System;
 using System.Collections.Generic;
@@ -29,7 +29,7 @@ namespace Testing
             {
                 DateTime from = new DateTime(cd.Year, cd.Month, 1);
                 DateTime to = new DateTime(cd.Year, cd.Month, DateTime.DaysInMonth(cd.Year, cd.Month), 23, 59, 59);
-                var qs = db.Table<Question>().Between(f => f.CreationDate, from, to, BetweenBoundaries.BothInclusive).Select(f => new { f.Id, f.Tags });
+                var qs = db.Table<Question>().BetweenDate(f => f.CreationDate, from, to, BetweenBoundaries.BothInclusive).Select(f => new { f.Id, f.Tags });
 
                 if (!qs.Any())
                 {

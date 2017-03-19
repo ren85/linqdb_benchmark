@@ -1,4 +1,4 @@
-﻿using LinqDb;
+﻿using LinqdbClient;
 using StackData;
 using System;
 using System.Collections.Generic;
@@ -26,7 +26,7 @@ namespace Testing
             {
                 DateTime from = new DateTime(cd.Year, cd.Month, 1);
                 DateTime to = new DateTime(cd.Year, cd.Month, DateTime.DaysInMonth(cd.Year, cd.Month), 23, 59, 59);
-                var qs = db.Table<Question>().Between(f => f.CreationDate, from, to, BetweenBoundaries.BothInclusive)
+                var qs = db.Table<Question>().BetweenDate(f => f.CreationDate, from, to, BetweenBoundaries.BothInclusive)
                            .Select(f => new { f.Id, f.AnswerCount, f.AcceptedAnswerId });
                 if (!qs.Any())
                 {
@@ -37,7 +37,7 @@ namespace Testing
                 {
                     qdic[q.Id] = new int[2] { q.AnswerCount, q.AcceptedAnswerId != null ? 1 : 0 };
                 }
-                var tags = db.Table<QuestionTags>().Intersect(f => f.QuestionId, qs.Select(f => f.Id).ToList())
+                var tags = db.Table<QuestionTags>().IntersectListInt(f => f.QuestionId, qs.Select(f => f.Id).ToList())
                                                    .Select(f => new { f.QuestionId, f.TagId });
                 foreach (var tag in tags)
                 {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
-using LinqDb;
+using LinqdbClient;
 using StackData;
 
 namespace Testing
@@ -26,13 +26,13 @@ namespace Testing
             {
                 DateTime from = new DateTime(cd.Year, cd.Month, 1);
                 DateTime to = new DateTime(cd.Year, cd.Month, DateTime.DaysInMonth(cd.Year, cd.Month), 23, 59, 59);
-                result[from] = db.Table<User>().Between(f => f.CreationDate, from, to, BetweenBoundaries.BothInclusive).Select(f => new { f.Id }).Count();
+                result[from] = db.Table<User>().BetweenDate(f => f.CreationDate, from, to, BetweenBoundaries.BothInclusive).Select(f => new { f.Id }).Count();
             }
             var last_key = new DateTime(max_date.Year, max_date.Month, 1);
             if (!result.ContainsKey(last_key))
             {
                 result[last_key] = db.Table<User>()
-                                     .Between(f => f.CreationDate, new DateTime(max_date.Year, max_date.Month, 1), max_date, BetweenBoundaries.BothInclusive)
+                                     .BetweenDate(f => f.CreationDate, new DateTime(max_date.Year, max_date.Month, 1), max_date, BetweenBoundaries.BothInclusive)
                                      .Select(f => new { f.Id }).Count();
             }
 
