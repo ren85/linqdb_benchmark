@@ -71,7 +71,7 @@ namespace ImportStack
                 Reputation = Convert.ToInt32(xe.Attribute("Reputation").Value),
                 DisplayName = xe.Attribute("DisplayName").Value.ToString(),
                 AccountId = xe.Attribute("AccountId") != null ? Convert.ToInt32(xe.Attribute("AccountId").Value) : (int?)null,
-                AboutMe = xe.Attribute("AboutMe") != null ? Encoding.UTF8.GetBytes(xe.Attribute("AboutMe").Value.ToString()) : null,
+                AboutMe = xe.Attribute("AboutMe") != null ? xe.Attribute("AboutMe").Value.ToString() : null,
                 CreationDate = Convert.ToDateTime(xe.Attribute("CreationDate").Value),
                 DownVotes = Convert.ToInt32(xe.Attribute("DownVotes").Value),
                 UpVotes = Convert.ToInt32(xe.Attribute("UpVotes").Value),
@@ -97,15 +97,13 @@ namespace ImportStack
 
         static void Main(string[] args)
         {
-            //Import(@"E:\");
             Import(@"C:\Users\Administrator\Documents\stackoverflow\");
         }
 
         static void Import(string base_path)
         {
-            //var db = new Db("rextester.cloudapp.net:2055");
-            //var db = new Db("localhost:2055");
-            var db = new Db("13.69.73.68:2055");
+            //var db = new Db(Path.Combine(base_path, "LINQDB_DATA"));
+            var db = new Db("40.68.212.137:2055");
             var questions = new List<Question>();
             var answers = new List<Answer>();
             int totalq = 0, totala = 0;
@@ -185,8 +183,13 @@ namespace ImportStack
                 {
                     break;
                 }
+
+                var dic_tags = new Dictionary<int, string>();
+                var dic_count = new Dictionary<int, int?>();
                 foreach (var t in stags)
                 {
+                    string tags_string = "";
+                    int tag_count = 0;
                     var ptags = Utils.ParseTags(t.Tags);
                     foreach (var tag in ptags)
                     {
@@ -195,6 +198,8 @@ namespace ImportStack
                             throw new Exception("Tag not found: " + tag);
                         }
                         var tags_id = tag_dic[tag];
+                        tags_string += tags_id + "|";
+                        tag_count++;
                         qt.Add(new QuestionTags()
                         {
                             Id = 0,
@@ -202,8 +207,12 @@ namespace ImportStack
                             TagId = tags_id
                         });
                     }
+                    dic_tags[t.QuestionId] = tags_string.Trim("|".ToCharArray());
+                    dic_count[t.QuestionId] = tag_count;
                 }
                 db.Table<QuestionTags>().SaveBatch(qt);
+                db.Table<Question>().UpdateStringMany(f => f.TagIds, dic_tags);
+                db.Table<Question>().UpdateIntMany(f => f.TagCount, dic_count);
                 qt = new List<QuestionTags>();
             }
             if (qt.Any())
@@ -253,7 +262,7 @@ namespace ImportStack
             }
 
             Console.WriteLine("Time: {0} min", ((DateTime.Now) - start).TotalMinutes);
-            //Console.ReadLine();
+            Console.ReadLine();
             db.Dispose();
         }
 

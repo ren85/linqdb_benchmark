@@ -53,8 +53,12 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LinqdbClient">
-      <HintPath>..\client\LinqdbClient.dll</HintPath>
+    <Reference Include="LinqDb">
+      <HintPath>..\linqdb\embedded\LinqDb.dll</HintPath>
+    </Reference>
+    <Reference Include="LinqdbClient, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\linqdb\client\LinqdbClient.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

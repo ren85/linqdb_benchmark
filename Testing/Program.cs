@@ -10,7 +10,7 @@ namespace Testing
     {
         static void Main(string[] args)
         {
-            string path = @"13.69.73.68:2055";
+            string path = @"E:\LINQDB_DATA";
             var list = new List<ITest>() 
             {
                 new SignupsPerMonth(),

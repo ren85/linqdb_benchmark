@@ -1,4 +1,4 @@
-﻿using LinqdbClient;
+﻿using LinqDb;
 using StackData;
 using System;
 using System.Collections.Generic;

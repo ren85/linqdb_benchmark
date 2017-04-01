@@ -1,4 +1,4 @@
-﻿using LinqdbClient;
+﻿using LinqDb;
 using StackData;
 using System;
 using System.Collections.Generic;
@@ -15,6 +15,9 @@ namespace Testing
         {
             var db = new Db(path);
 
+            //var count = db.Table<Answer>().BetweenDate(f => f.CreationDate, Convert.ToDateTime("2015-10-01"), Convert.ToDateTime("2015-11-01"), BetweenBoundaries.BothInclusive).Count();
+
+
             Stopwatch sw = new Stopwatch();
             sw.Start();
 
@@ -29,8 +32,7 @@ namespace Testing
                                       .BetweenDate(f => f.CreationDate, from, to, BetweenBoundaries.BothInclusive)
                                       .Select(f => new { f.OwnerUserId })
                                       .Select(f => f.OwnerUserId)
-                                      .Where(f => f != null)
-                                      .AsEnumerable<int?>();
+                                      .Where(f => f != null);
                 if (!users_asked_l.Any())
                 {
                     break;

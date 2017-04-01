@@ -25,6 +25,8 @@ namespace StackData
         public int? FavoriteCount { get; set; }
         public DateTime? CommunityOwnedDate { get; set; }
         public int? AcceptedAnswerId { get; set; }
+        public string TagIds { get; set; }
+        public int TagCount { get; set; }
     }
 
     public class Answer
@@ -66,7 +68,7 @@ namespace StackData
         public DateTime LastAccessDate { get; set; }
         public string WebsiteUrl { get; set; }
         public string Location { get; set; }
-        public byte[] AboutMe { get; set; }
+        public string AboutMe { get; set; }
         public int Views { get; set; }
         public int UpVotes { get; set; }
         public int DownVotes { get; set; }
