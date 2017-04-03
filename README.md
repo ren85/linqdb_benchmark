@@ -19,7 +19,17 @@ Code:
 6. Tag activity per month, fast version - https://github.com/ren85/linqdb_benchmark/blob/master/Testing/TagsPerMonthFast.cs
 7. Tag's info, fast version - https://github.com/ren85/linqdb_benchmark/blob/master/Testing/TagsInfoFast.cs
 
-Embedded db, SSD disk:
+Embedded db, rotating disk (7200 RPM) - windows:
+
+1. Data import: 367 min, db size 46 Gb
+2. Signups per month: 10 sec
+3. User activity per month: 135 sec
+4. Tag activity per month: 425 sec
+5. Tag's info: 473 sec
+6. Tag activity per month, fast version: 123 sec
+7. Tag's info, fast version: 165 sec
+
+Embedded db, SSD disk - windows:
 
 1. Data import: 245 min, db size 46 Gb
 2. Signups per month: 12 sec
@@ -29,7 +39,7 @@ Embedded db, SSD disk:
 6. Tag activity per month, fast version: 104 sec
 7. Tag's info, fast version: 162 sec
 
-Server db, server and client in the same geographic region (but not in the same LAN), SSD disk:
+Server db, server and client in the same geographic region (but not in the same LAN), SSD disk - linux:
 
 1. Data import: 257 min, db size 49 Gb
 2. Signups per month: 26 sec
