@@ -1,5 +1,0 @@
-C:\Users\renbo\Desktop\linqdb_benchmark\StackData\bin\Debug\StackData.dll
-C:\Users\renbo\Desktop\linqdb_benchmark\StackData\bin\Debug\StackData.pdb
-C:\Users\renbo\Desktop\linqdb_benchmark\StackData\obj\Debug\StackData.dll
-C:\Users\renbo\Desktop\linqdb_benchmark\StackData\obj\Debug\StackData.pdb
-C:\Users\renbo\Desktop\linqdb_benchmark\StackData\obj\Debug\StackData.csprojResolveAssemblyReference.cache

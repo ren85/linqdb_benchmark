@@ -97,12 +97,12 @@ namespace ImportStack
 
         static void Main(string[] args)
         {
-            Import(@"C:\Users\Administrator\Documents\stackoverflow\");
+            Import(@"C:\Users\Administrator\Documents\stackoverflow", @"C:\Users\renbo\Desktop\");
         }
 
-        static void Import(string base_path)
+        static void Import(string base_path, string DB_DATA)
         {
-            //var db = new Db(Path.Combine(base_path, "LINQDB_DATA"));
+            //var db = new Db(Path.Combine(DB_DATA, "DATA"));
             var db = new Db("40.68.212.137:2055");
             var questions = new List<Question>();
             var answers = new List<Answer>();
@@ -186,7 +186,7 @@ namespace ImportStack
 
                 var dic_tags = new Dictionary<int, string>();
                 var dic_count = new Dictionary<int, int?>();
-                foreach (var t in stags)
+                foreach (var t in stags.Where(f => f.Tags != null))
                 {
                     string tags_string = "";
                     int tag_count = 0;
