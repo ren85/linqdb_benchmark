@@ -29,7 +29,7 @@ Embedded db, SSD disk:
 6. Tag activity per month, fast version: 104 sec
 7. Tag's info, fast version: 162 sec
 
-Server, servers in the same geographic region (but not in the same LAN), SSD disk:
+Server db, server and client in the same geographic region (but not in the same LAN), SSD disk:
 
 1. Data import: 257 min, db size 49 Gb
 2. Signups per month: 26 sec
@@ -42,5 +42,5 @@ Server, servers in the same geographic region (but not in the same LAN), SSD dis
 
 Difference between embedded-db code and server-db code:
 
-using LinqDb; and using LinqdbClient;
-var db = new Db(path-to-folder); and var db = new Db(ip-address:port);
+1. <code>using LinqDb;</code> and <code>using LinqdbClient;</code>
+2. <code>var db = new Db(path-to-folder);</code> and <code>var db = new Db(ip-address:port);</code>
