@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
-using LinqdbClient;
+using LinqDb;
+//using LinqdbClient;
 using StackData;
 
 namespace Testing
@@ -13,7 +14,7 @@ namespace Testing
     {
         public void Do(string path)
         {
-            var db = new Db(path);
+            var db = new Db(path/*, "reader", "reader"*/);
 
             Stopwatch sw = new Stopwatch();
             sw.Start();

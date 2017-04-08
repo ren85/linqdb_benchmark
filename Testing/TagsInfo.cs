@@ -1,4 +1,5 @@
-﻿using LinqdbClient;
+﻿using LinqDb;
+//using LinqdbClient;
 using StackData;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace Testing
     {
         public void Do(string path)
         {
-            var db = new Db(path);
+            var db = new Db(path/*, "reader", "reader"*/);
 
             Stopwatch sw = new Stopwatch();
             sw.Start();

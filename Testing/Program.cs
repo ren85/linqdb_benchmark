@@ -10,7 +10,8 @@ namespace Testing
     {
         static void Main(string[] args)
         {
-            string path = @"40.68.212.137:2055";
+            //string path = @"40.68.212.137:2055";
+            string path = @"C:\Users\renbo\Desktop\DATA";
             var list = new List<ITest>() 
             {
                 new SignupsPerMonth(),
