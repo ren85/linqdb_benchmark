@@ -14,7 +14,8 @@ namespace Testing
     {
         public void Do(string path)
         {
-            var db = new Db(path/*, "reader", "reader"*/);
+            //var db = new Db(path, "reader", "reader");
+            var db = new Db(path);
 
             //var count = db.Table<Answer>().BetweenDate(f => f.CreationDate, Convert.ToDateTime("2015-10-01"), Convert.ToDateTime("2015-11-01"), BetweenBoundaries.BothInclusive).Count();
 

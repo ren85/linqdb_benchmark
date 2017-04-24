@@ -14,7 +14,8 @@ namespace Testing
     {
         public void Do(string path)
         {
-            var db = new Db(path/*, "reader", "reader"*/);
+            //var db = new Db(path, "reader", "reader");
+            var db = new Db(path);
 
             Stopwatch sw = new Stopwatch();
             sw.Start();

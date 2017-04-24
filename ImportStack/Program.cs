@@ -7,6 +7,7 @@ using System.IO;
 using System.Xml.Linq;
 using System.Xml;
 using StackData;
+//using LinqDb;
 using LinqdbClient;
 
 namespace ImportStack
@@ -97,13 +98,13 @@ namespace ImportStack
 
         static void Main(string[] args)
         {
-            Import(@"C:\Users\Administrator\Documents\stackoverflow", @"C:\Users\renbo\Desktop\");
+            Import(@"C:\Users\Administrator\Downloads", @"C:\Users\renbo\Desktop\");
         }
 
         static void Import(string base_path, string DB_DATA)
         {
             //var db = new Db(Path.Combine(DB_DATA, "DATA"));
-            var db = new Db("40.68.212.137:2055");
+            var db = new Db("40.68.212.137:2055", "writer", "you_are_not_alone");
             var questions = new List<Question>();
             var answers = new List<Answer>();
             int totalq = 0, totala = 0;
