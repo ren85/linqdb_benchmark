@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
-using LinqDb;
-//using LinqdbClient;
+//using LinqDb;
+using LinqdbClient;
 using StackData;
 
 namespace Testing
@@ -14,12 +14,13 @@ namespace Testing
     {
         public void Do(string path)
         {
-            //var db = new Db(path, "reader", "reader");
-            var db = new Db(path);
+            var db = new Db(path, "admin", "admin");
+            //var db = new Db(path);
 
             Stopwatch sw = new Stopwatch();
             sw.Start();
 
+            var a = db.Table<User>().Count();
             DateTime min_date = db.Table<User>().OrderBy(f => f.CreationDate).Take(1).Select(f => new { f.CreationDate }).First().CreationDate;
             DateTime max_date = db.Table<User>().OrderByDescending(f => f.CreationDate).Take(1).Select(f => new { f.CreationDate }).First().CreationDate;
 
@@ -28,13 +29,13 @@ namespace Testing
             {
                 DateTime from = new DateTime(cd.Year, cd.Month, 1);
                 DateTime to = new DateTime(cd.Year, cd.Month, DateTime.DaysInMonth(cd.Year, cd.Month), 23, 59, 59);
-                result[from] = db.Table<User>().BetweenDate(f => f.CreationDate, from, to, BetweenBoundaries.BothInclusive).Select(f => new { f.Id }).Count();
+                result[from] = db.Table<User>().Between(f => f.CreationDate, from, to, BetweenBoundaries.BothInclusive).Select(f => new { f.Id }).Count();
             }
             var last_key = new DateTime(max_date.Year, max_date.Month, 1);
             if (!result.ContainsKey(last_key))
             {
                 result[last_key] = db.Table<User>()
-                                     .BetweenDate(f => f.CreationDate, new DateTime(max_date.Year, max_date.Month, 1), max_date, BetweenBoundaries.BothInclusive)
+                                     .Between(f => f.CreationDate, new DateTime(max_date.Year, max_date.Month, 1), max_date, BetweenBoundaries.BothInclusive)
                                      .Select(f => new { f.Id }).Count();
             }
 

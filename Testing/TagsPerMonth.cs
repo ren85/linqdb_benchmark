@@ -1,5 +1,5 @@
-﻿using LinqDb;
-//using LinqdbClient;
+﻿//using LinqDb;
+using LinqdbClient;
 using StackData;
 using System;
 using System.Collections.Generic;
@@ -14,8 +14,12 @@ namespace Testing
     {
         public void Do(string path)
         {
-            //var db = new Db(path, "reader", "reader");
-            var db = new Db(path);
+            var db = new Db(path, "admin", "admin");
+            //var db = new Db(path);
+
+            db.Table<QuestionTags>().CreatePropertyMemoryIndex(f => f.QuestionId);
+            db.Table<QuestionTags>().CreatePropertyMemoryIndex(f => f.TagId);
+            db.Table<Question>().CreatePropertyMemoryIndex(f => f.CreationDate);
 
             Stopwatch sw = new Stopwatch();
             sw.Start();
@@ -28,15 +32,15 @@ namespace Testing
             {
                 DateTime from = new DateTime(cd.Year, cd.Month, 1);
                 DateTime to = new DateTime(cd.Year, cd.Month, DateTime.DaysInMonth(cd.Year, cd.Month), 23, 59, 59);
-                var qs = db.Table<Question>().BetweenDate(f => f.CreationDate, from, to, BetweenBoundaries.BothInclusive).Select(f => new { f.Id });
+                var qs = db.Table<Question>().Between(f => f.CreationDate, from, to, BetweenBoundaries.BothInclusive).GetIds().Ids;
 
-                if (!qs.Any())
+                if (qs == null || !qs.Any())
                 {
                     break;
                 }
 
                 var res = new Dictionary<int, int>(); //tag_id, count
-                var tags = db.Table<QuestionTags>().IntersectListInt(f => f.QuestionId, qs.Select(f => f.Id).ToList())
+                var tags = db.Table<QuestionTags>().Intersect(f => f.QuestionId, qs.Select(f => f).ToList())
                                                    .Select(f => new { f.QuestionId, f.TagId });
 
                 foreach (var tag in tags)

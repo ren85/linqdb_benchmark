@@ -1,5 +1,5 @@
-﻿using LinqDb;
-//using LinqdbClient;
+﻿//using LinqDb;
+using LinqdbClient;
 using StackData;
 using System;
 using System.Collections.Generic;
@@ -14,11 +14,21 @@ namespace Testing
     {
         public void Do(string path)
         {
-            //var db = new Db(path, "reader", "reader");
-            var db = new Db(path);
+            var db = new Db(path, "admin", "admin");
 
-            //var count = db.Table<Answer>().BetweenDate(f => f.CreationDate, Convert.ToDateTime("2015-10-01"), Convert.ToDateTime("2015-11-01"), BetweenBoundaries.BothInclusive).Count();
+            //var res = db.Table<Question>().Where(f => f.OwnerUserId == null).GetIds().Ids.ToDictionary(f => f, f => 0);
+            //db.Table<Question>().Update(f => f.OwnerUserId, res);
+            //var res2 = db.Table<Answer>().Where(f => f.OwnerUserId == null).GetIds().Ids.ToDictionary(f => f, f => 0);
+            //db.Table<Answer>().Update(f => f.OwnerUserId, res2);
 
+            //db.Table<Question>().RemovePropertyMemoryIndex(f => f.OwnerUserId);
+            //db.Table<Answer>().RemovePropertyMemoryIndex(f => f.CreationDate);
+            //db.Table<Answer>().RemovePropertyMemoryIndex(f => f.OwnerUserId);
+
+            db.Table<Question>().CreatePropertyMemoryIndex(f => f.CreationDate);
+            db.Table<Question>().CreatePropertyMemoryIndex(f => f.OwnerUserId);
+            db.Table<Answer>().CreatePropertyMemoryIndex(f => f.CreationDate);
+            db.Table<Answer>().CreatePropertyMemoryIndex(f => f.OwnerUserId);
 
             Stopwatch sw = new Stopwatch();
             sw.Start();
@@ -31,7 +41,7 @@ namespace Testing
                 DateTime from = new DateTime(cd.Year, cd.Month, 1);
                 DateTime to = new DateTime(cd.Year, cd.Month, DateTime.DaysInMonth(cd.Year, cd.Month), 23, 59, 59);
                 var users_asked_l = db.Table<Question>()
-                                      .BetweenDate(f => f.CreationDate, from, to, BetweenBoundaries.BothInclusive)
+                                      .Between(f => f.CreationDate, from, to, BetweenBoundaries.BothInclusive)
                                       .Select(f => new { f.OwnerUserId })
                                       .Select(f => f.OwnerUserId)
                                       .Where(f => f != null);
@@ -44,7 +54,7 @@ namespace Testing
                 
                 //answers
                 var users_answered = db.Table<Answer>()
-                                       .BetweenDate(f => f.CreationDate, from, to, BetweenBoundaries.BothInclusive)
+                                       .Between(f => f.CreationDate, from, to, BetweenBoundaries.BothInclusive)
                                        .Select(f => new { f.OwnerUserId })
                                        .Select(f => f.OwnerUserId)
                                        .Where(f => f != null);

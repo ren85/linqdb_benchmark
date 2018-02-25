@@ -98,13 +98,12 @@ namespace ImportStack
 
         static void Main(string[] args)
         {
-            Import(@"C:\Users\Administrator\Downloads", @"C:\Users\renbo\Desktop\");
+            Import(@"C:\Users\Administrator\Downloads\", @"");
         }
 
         static void Import(string base_path, string DB_DATA)
         {
-            //var db = new Db(Path.Combine(DB_DATA, "DATA"));
-            var db = new Db("40.68.212.137:2055", "writer", "you_are_not_alone");
+            var db = new Db("5.175.13.5:2055", "admin", "admin");
             var questions = new List<Question>();
             var answers = new List<Answer>();
             int totalq = 0, totala = 0;
@@ -146,6 +145,7 @@ namespace ImportStack
                 answers = new List<Answer>();
             }
 
+            Console.WriteLine("QA done");
             //tags
             Dictionary<string, int> tag_dic = new Dictionary<string, int>();
             var tags = new List<Tag>();
@@ -178,7 +178,7 @@ namespace ImportStack
             for (int qid = 0; ; qid += bsize)
             {
                 var stags = db.Table<Question>()
-                              .BetweenInt(f => f.Id, qid, qid + bsize, BetweenBoundaries.FromInclusiveToExclusive)
+                              .Between(f => f.Id, qid, qid + bsize, BetweenBoundaries.FromInclusiveToExclusive)
                               .Select(f => new { QuestionId = f.Id, Tags = f.Tags });
                 if (!stags.Any())
                 {
@@ -212,8 +212,8 @@ namespace ImportStack
                     dic_count[t.QuestionId] = tag_count;
                 }
                 db.Table<QuestionTags>().SaveBatch(qt);
-                db.Table<Question>().UpdateStringMany(f => f.TagIds, dic_tags);
-                db.Table<Question>().UpdateIntMany(f => f.TagCount, dic_count);
+                db.Table<Question>().Update(f => f.TagIds, dic_tags);
+                db.Table<Question>().Update(f => f.TagCount, dic_count);
                 qt = new List<QuestionTags>();
             }
             if (qt.Any())
@@ -221,6 +221,8 @@ namespace ImportStack
                 db.Table<QuestionTags>().SaveBatch(qt);
                 qt = new List<QuestionTags>();
             }
+
+            Console.WriteLine("Tags done");
 
             //users
             var users = new List<User>();
@@ -244,6 +246,8 @@ namespace ImportStack
                 users = new List<User>();
             }
 
+            Console.WriteLine("Users done");
+
             //comments
             var comments = new List<Comment>();
             foreach (var row in EnumerateRows(Path.Combine(base_path, "Comments.xml")))
@@ -261,6 +265,8 @@ namespace ImportStack
                 db.Table<Comment>().SaveBatch(comments);
                 comments = new List<Comment>();
             }
+
+            Console.WriteLine("Comments done");
 
             Console.WriteLine("Time: {0} min", ((DateTime.Now) - start).TotalMinutes);
             Console.ReadLine();

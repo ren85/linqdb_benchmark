@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using LinqDb;
-//using LinqdbClient;
+//using LinqDb;
+using LinqdbClient;
 using System.Diagnostics;
 using StackData;
 
@@ -66,7 +66,7 @@ namespace Testing
                     var answers = db.Table<Answer>().Where(f => f.ParentId == q.Id).SelectEntity();
                     var all_posts_ids = new HashSet<int>(answers.Select(f => f.Id));
                     all_posts_ids.Add(q.Id);
-                    var comments = db.Table<Comment>().IntersectHashsetInt(f => f.PostId, all_posts_ids).SelectEntity();
+                    var comments = db.Table<Comment>().Intersect(f => f.PostId, all_posts_ids).SelectEntity();
                 }
                 else
                 {
@@ -87,7 +87,7 @@ namespace Testing
                     Counter++;
                     if (Counter % 100 == 0)
                     {
-                        Console.WriteLine(Counter);
+                        //Console.WriteLine(Counter);
                     }
                 }
             }
