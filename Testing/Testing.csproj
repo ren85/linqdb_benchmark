@@ -52,12 +52,14 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LinqDb">
-      <HintPath>..\linqdb\embedded\LinqDb.dll</HintPath>
+    <Reference Include="LinqDb, Version=1.0.1.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>..\packages\linqdb.net.windows.embedded.64bit.2.5\lib\net45\LinqDb.dll</HintPath>
     </Reference>
     <Reference Include="LinqdbClient, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\linqdb\client\LinqdbClient.dll</HintPath>
+      <HintPath>..\packages\linqdb.net.windows.server.client.anycpu.2.5.1\lib\net45\LinqdbClient.dll</HintPath>
+    </Reference>
+    <Reference Include="ServerSharedData, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\linqdb.net.windows.server.client.anycpu.2.5.1\lib\net45\ServerSharedData.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -82,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\StackData\StackData.csproj">

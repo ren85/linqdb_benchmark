@@ -1,5 +1,5 @@
-﻿//using LinqDb;
-using LinqdbClient;
+﻿using LinqDb;
+//using LinqdbClient;
 using StackData;
 using System;
 using System.Collections.Generic;
@@ -14,12 +14,8 @@ namespace Testing
     {
         public void Do(string path)
         {
-            var db = new Db(path, "admin", "admin");
-            //var db = new Db(path);
-
-            db.Table<QuestionTags>().CreatePropertyMemoryIndex(f => f.QuestionId);
-            db.Table<QuestionTags>().CreatePropertyMemoryIndex(f => f.TagId);
-            db.Table<Question>().CreatePropertyMemoryIndex(f => f.CreationDate);
+            //var db = new Db(path, "admin", "admin");
+            var db = new Db(path);
 
             Stopwatch sw = new Stopwatch();
             sw.Start();

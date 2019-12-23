@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LinqdbClient;
+using StackData;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,19 +12,20 @@ namespace Testing
     {
         static void Main(string[] args)
         {
-            string path = @"5.175.13.5:2055";
-            //string path = @"C:\Users\renbo\Desktop\DATA";
+            //string path = @":2055";
+            string path = @"C:\Users\Administrator\Downloads\DATA";
+
+            
             var list = new List<ITest>()
             {
-                new SignupsPerMonth(),
-                new ActiveUsersByMonth(),
-                new TagsPerMonth(), //432 sec
-                new TagsInfo(),
+                //new SignupsPerMonth(),
+                //new ActiveUsersByMonth(),
+                //new TagsPerMonth(),
+                //new TagsInfo(),
 
-
-                ////new TagsPerMonthFast(),
-                ////new TagsInfoFast(),
-                //new ThreadsTest(),
+                //new TagsPerMonthFast(),
+                //new TagsInfoFast(),
+                new ThreadsTest(),
 
                 //new Various()
             };

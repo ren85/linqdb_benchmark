@@ -1,5 +1,5 @@
-﻿//using LinqDb;
-using LinqdbClient;
+﻿using LinqDb;
+//using LinqdbClient;
 using StackData;
 using System;
 using System.Collections.Generic;
@@ -14,21 +14,8 @@ namespace Testing
     {
         public void Do(string path)
         {
-            var db = new Db(path, "admin", "admin");
-
-            //var res = db.Table<Question>().Where(f => f.OwnerUserId == null).GetIds().Ids.ToDictionary(f => f, f => 0);
-            //db.Table<Question>().Update(f => f.OwnerUserId, res);
-            //var res2 = db.Table<Answer>().Where(f => f.OwnerUserId == null).GetIds().Ids.ToDictionary(f => f, f => 0);
-            //db.Table<Answer>().Update(f => f.OwnerUserId, res2);
-
-            //db.Table<Question>().RemovePropertyMemoryIndex(f => f.OwnerUserId);
-            //db.Table<Answer>().RemovePropertyMemoryIndex(f => f.CreationDate);
-            //db.Table<Answer>().RemovePropertyMemoryIndex(f => f.OwnerUserId);
-
-            db.Table<Question>().CreatePropertyMemoryIndex(f => f.CreationDate);
-            db.Table<Question>().CreatePropertyMemoryIndex(f => f.OwnerUserId);
-            db.Table<Answer>().CreatePropertyMemoryIndex(f => f.CreationDate);
-            db.Table<Answer>().CreatePropertyMemoryIndex(f => f.OwnerUserId);
+            //var db = new Db(path, "admin", "admin");
+            var db = new Db(path);
 
             Stopwatch sw = new Stopwatch();
             sw.Start();

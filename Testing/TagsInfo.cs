@@ -1,5 +1,5 @@
-﻿//using LinqDb;
-using LinqdbClient;
+﻿using LinqDb;
+//using LinqdbClient;
 using StackData;
 using System;
 using System.Collections.Generic;
@@ -14,13 +14,8 @@ namespace Testing
     {
         public void Do(string path)
         {
-            var db = new Db(path, "admin", "admin");
-            //var db = new Db(path);
-
-            db.Table<QuestionTags>().CreatePropertyMemoryIndex(f => f.QuestionId);
-            db.Table<QuestionTags>().CreatePropertyMemoryIndex(f => f.TagId);
-            db.Table<Question>().CreatePropertyMemoryIndex(f => f.AnswerCount);
-            db.Table<Question>().CreatePropertyMemoryIndex(f => f.AcceptedAnswerId);
+            //var db = new Db(path, "admin", "admin");
+            var db = new Db(path);
 
             Stopwatch sw = new Stopwatch();
             sw.Start();
@@ -42,7 +37,7 @@ namespace Testing
                 var qdic = new Dictionary<int, int[]>();
                 foreach (var q in qs)
                 {
-                    qdic[q.Id] = new int[2] { q.AnswerCount, q.AcceptedAnswerId != 0 ? 1 : 0 };
+                    qdic[q.Id] = new int[2] { q.AnswerCount, q.AcceptedAnswerId != null ? 1 : 0 };
                 }
                 var tags = db.Table<QuestionTags>().Intersect(f => f.QuestionId, qs.Select(f => f.Id).ToList())
                                                    .Select(f => new { f.QuestionId, f.TagId });
@@ -62,10 +57,10 @@ namespace Testing
             }
 
             //pick popular most unanswered tags for display
-            var hard_tags = result.Where(f => f.Value[0] > 1000).OrderByDescending(f => f.Value[2] / (double)f.Value[0]).Take(20).ToList();
+            var hard_tags = result.Where(f => f.Value[0] > 10000).OrderBy(f => f.Value[2] / (double)f.Value[0]).Take(20).ToList();
             foreach (var htag in hard_tags)
             {
-                Console.WriteLine("tag {0} (total {1}) has unanswered ratio {2} %", db.Table<Tag>().Where(f => f.Id == htag.Key).SelectEntity().First().Name, htag.Value[0], Math.Round(htag.Value[2] * 100 / (double)htag.Value[0]));
+                Console.WriteLine("tag {0} (total {1}) has answered ratio {2} %", db.Table<Tag>().Where(f => f.Id == htag.Key).SelectEntity().First().Name, htag.Value[0], Math.Round(htag.Value[2] * 100 / (double)htag.Value[0]));
             }
             sw.Stop();
             Console.WriteLine("Tag's info: {0} sec", sw.Elapsed.TotalSeconds);
